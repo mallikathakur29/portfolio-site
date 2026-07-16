@@ -1,0 +1,769 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mallika Thakur — Product &amp; UX Designer</title>
+<meta name="description" content="Product, UX and UI Designer portfolio — Mallika Thakur">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,500;0,9..144,600;1,9..144,400&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#F6F6F3;
+  --paper-dim:#EFEEE9;
+  --ink:#1C2024;
+  --ink-soft:#565B60;
+  --blueprint:#35577A;
+  --blueprint-light:#A9C3D6;
+  --blueprint-pale:#E4ECF1;
+  --rust:#B0502F;
+  --line:#D6D6D0;
+  --radius:2px;
+  --maxw:1040px;
+  --maxw-read:760px;
+}
+
+*{box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+@media (prefers-reduced-motion: reduce){
+  html{scroll-behavior:auto;}
+  *{animation-duration:0.001ms !important; animation-iteration-count:1 !important; transition-duration:0.001ms !important;}
+}
+
+body{
+  margin:0;
+  background:var(--paper);
+  color:var(--ink);
+  font-family:'Inter', sans-serif;
+  font-size:16px;
+  line-height:1.6;
+  -webkit-font-smoothing:antialiased;
+}
+
+a{color:var(--blueprint);}
+a:focus-visible, button:focus-visible{outline:2px solid var(--rust); outline-offset:3px;}
+
+.wrap{max-width:var(--maxw); margin:0 auto; padding:0 28px;}
+.wrap-read{max-width:var(--maxw-read); margin:0 auto; padding:0 28px;}
+
+.mono{font-family:'IBM Plex Mono', monospace; letter-spacing:0.02em;}
+
+/* ---------- NAV ---------- */
+header.site-nav{
+  position:sticky; top:0; z-index:50;
+  background:rgba(246,246,243,0.92);
+  backdrop-filter:blur(6px);
+  border-bottom:1px solid var(--line);
+}
+.site-nav .wrap{
+  display:flex; align-items:center; justify-content:space-between;
+  height:64px;
+}
+.brandmark{
+  display:flex; align-items:center; gap:8px;
+  font-family:'IBM Plex Mono', monospace;
+  font-size:14px;
+  color:var(--ink);
+  text-decoration:none;
+}
+.brandmark .bracket{color:var(--rust); font-weight:500;}
+nav.links{display:flex; gap:28px; align-items:center;}
+nav.links a{
+  color:var(--ink-soft); text-decoration:none; font-size:14px; font-weight:500;
+  padding:6px 2px; border-bottom:1px solid transparent;
+}
+nav.links a:hover{color:var(--ink); border-bottom-color:var(--blueprint-light);}
+.resume-btn{
+  background:var(--ink); color:var(--paper) !important; padding:9px 16px;
+  border-radius:var(--radius); font-size:13px; font-weight:500;
+  text-decoration:none; border-bottom:none !important;
+}
+.resume-btn:hover{background:var(--blueprint);}
+.nav-toggle{display:none;}
+
+@media (max-width: 720px){
+  nav.links{
+    position:fixed; inset:64px 0 0 0; background:var(--paper);
+    flex-direction:column; align-items:flex-start; padding:24px 28px;
+    transform:translateY(-8px); opacity:0; pointer-events:none;
+    transition:opacity .18s ease, transform .18s ease;
+  }
+  nav.links.open{opacity:1; pointer-events:auto; transform:translateY(0);}
+  nav.links a{font-size:18px; padding:12px 0; width:100%; border-bottom:1px solid var(--line);}
+  .nav-toggle{
+    display:block; background:none; border:1px solid var(--line); border-radius:var(--radius);
+    width:38px; height:34px; cursor:pointer; position:relative;
+  }
+  .nav-toggle span, .nav-toggle span::before, .nav-toggle span::after{
+    content:''; position:absolute; left:9px; width:20px; height:2px; background:var(--ink);
+  }
+  .nav-toggle span{top:16px;}
+  .nav-toggle span::before{top:-6px;}
+  .nav-toggle span::after{top:6px;}
+}
+
+/* ---------- CORNER BRACKET MOTIF ---------- */
+.bracketed{position:relative;}
+.bracketed::before, .bracketed::after{
+  content:''; position:absolute; width:14px; height:14px; pointer-events:none;
+}
+.bracketed::before{ top:-1px; left:-1px; border-top:2px solid var(--rust); border-left:2px solid var(--rust); }
+.bracketed::after{ bottom:-1px; right:-1px; border-bottom:2px solid var(--rust); border-right:2px solid var(--rust); }
+
+/* ---------- TYPE ---------- */
+.eyebrow{
+  font-family:'IBM Plex Mono', monospace; font-size:12px; color:var(--rust);
+  text-transform:uppercase; letter-spacing:0.12em; margin-bottom:14px; display:block;
+}
+h1.display{
+  font-family:'Fraunces', serif; font-weight:500; font-size:clamp(2.2rem, 4.6vw, 3.4rem);
+  line-height:1.08; margin:0 0 20px; letter-spacing:-0.01em;
+}
+h1.display em{font-style:italic; font-weight:300; color:var(--blueprint);}
+
+.cta-row{display:flex; gap:14px; flex-wrap:wrap;}
+.btn{
+  display:inline-flex; align-items:center; gap:8px;
+  padding:12px 20px; border-radius:var(--radius); text-decoration:none;
+  font-size:14px; font-weight:600; border:1px solid transparent; cursor:pointer;
+}
+.btn-primary{background:var(--ink); color:var(--paper);}
+.btn-primary:hover{background:var(--blueprint);}
+.btn-ghost{background:transparent; color:var(--ink); border-color:var(--line);}
+.btn-ghost:hover{border-color:var(--ink);}
+
+/* ---------- SECTION SHELL ---------- */
+section{padding:64px 0;}
+section.alt{background:var(--paper-dim); border-top:1px solid var(--line); border-bottom:1px solid var(--line);}
+section.tight{padding:44px 0;}
+.section-head{margin-bottom:40px; max-width:60ch;}
+.section-head .eyebrow{margin-bottom:10px;}
+h2.section-title{
+  font-family:'Fraunces', serif; font-weight:500; font-size:clamp(1.6rem, 3vw, 2.2rem);
+  margin:0 0 12px; letter-spacing:-0.01em;
+}
+.section-head p{color:var(--ink-soft); margin:0;}
+
+/* ---------- WORK GRID / CARDS (index) ---------- */
+.work-grid{display:grid; grid-template-columns:1fr 1fr; gap:26px;}
+@media (max-width:760px){ .work-grid{grid-template-columns:1fr;} }
+
+.card{
+  background:var(--paper); border:1px solid var(--line); border-radius:6px;
+  padding:22px; display:flex; flex-direction:column; gap:14px;
+  transition:border-color .15s ease, transform .15s ease;
+  text-decoration:none; color:var(--ink);
+}
+.card:hover{border-color:var(--blueprint-light); transform:translateY(-2px);}
+.card.locked{background:var(--paper-dim);}
+.card-thumb{
+  background:var(--blueprint-pale); border:1px solid var(--line); border-radius:4px;
+  aspect-ratio:16/10; display:flex; align-items:center; justify-content:center; overflow:hidden;
+}
+.card-thumb svg{width:88%; height:88%;}
+.card h3{font-family:'Fraunces', serif; font-weight:600; font-size:1.2rem; margin:0;}
+.card .role{font-family:'IBM Plex Mono', monospace; font-size:11.5px; color:var(--rust); text-transform:uppercase; letter-spacing:0.06em;}
+.card p.desc{color:var(--ink-soft); font-size:14.5px; margin:0;}
+.tags{display:flex; flex-wrap:wrap; gap:8px; margin-top:auto;}
+.tag{
+  font-family:'IBM Plex Mono', monospace; font-size:11px; color:var(--ink-soft);
+  background:var(--paper-dim); border:1px solid var(--line); padding:4px 9px; border-radius:20px;
+}
+.card.locked .tag{background:var(--paper);}
+.lock-note{
+  display:flex; align-items:center; gap:8px; font-size:13px; color:var(--ink-soft); font-style:italic;
+}
+
+/* ---------- SKILLS ---------- */
+.skills-grid{display:grid; grid-template-columns:repeat(2,1fr); gap:28px;}
+@media (max-width:760px){ .skills-grid{grid-template-columns:1fr;} }
+.skill-block .label{
+  font-family:'IBM Plex Mono', monospace; font-size:12px; color:var(--blueprint);
+  text-transform:uppercase; letter-spacing:0.08em; display:block; margin-bottom:10px;
+}
+.skill-block p{margin:0; color:var(--ink-soft); font-size:14.5px;}
+
+/* ---------- PROCESS STEPS ---------- */
+.process{
+  display:grid; grid-template-columns:repeat(4, 1fr); gap:0;
+  border:1px solid var(--line); border-radius:6px; overflow:hidden;
+}
+@media (max-width:760px){ .process{grid-template-columns:1fr;} }
+.process .step{
+  padding:26px 22px; background:var(--paper); position:relative;
+  border-right:1px solid var(--line);
+}
+.process .step:last-child{border-right:none;}
+@media (max-width:760px){ .process .step{border-right:none; border-bottom:1px solid var(--line);} .process .step:last-child{border-bottom:none;} }
+.step .num{
+  font-family:'IBM Plex Mono', monospace; font-size:12px; color:var(--blueprint);
+  display:block; margin-bottom:10px;
+}
+.step h3{font-family:'Fraunces', serif; font-size:1.05rem; font-weight:600; margin:0 0 8px;}
+.step p{font-size:13.5px; color:var(--ink-soft); margin:0;}
+
+/* ---------- EXPERIENCE TIMELINE ---------- */
+.timeline{border-left:2px solid var(--line); margin-left:6px; padding-left:26px;}
+.tl-item{position:relative; padding-bottom:32px;}
+.tl-item:last-child{padding-bottom:0;}
+.tl-item::before{
+  content:''; position:absolute; left:-32px; top:4px; width:10px; height:10px;
+  background:var(--paper); border:2px solid var(--blueprint); border-radius:50%;
+}
+.tl-item .when{font-family:'IBM Plex Mono', monospace; font-size:12px; color:var(--rust); display:block; margin-bottom:4px;}
+.tl-item h3{font-family:'Fraunces', serif; font-size:1.05rem; font-weight:600; margin:0 0 4px;}
+.tl-item .org{color:var(--ink-soft); font-size:13.5px; margin-bottom:8px; display:block;}
+.tl-item p{margin:0; font-size:14px; color:var(--ink-soft); max-width:60ch;}
+
+/* ---------- CONTACT / FOOTER ---------- */
+footer{padding:70px 0 46px;}
+.contact-box{
+  border:1px solid var(--line); border-radius:6px; padding:44px; text-align:center;
+  background:var(--paper-dim);
+}
+.contact-box h2{font-family:'Fraunces', serif; font-weight:500; font-size:clamp(1.6rem,3vw,2.1rem); margin:0 0 14px;}
+.contact-box p{color:var(--ink-soft); margin:0 0 26px;}
+.contact-links{display:flex; gap:16px; justify-content:center; flex-wrap:wrap;}
+.foot-meta{
+  margin-top:40px; display:flex; justify-content:space-between; align-items:center;
+  font-family:'IBM Plex Mono', monospace; font-size:12px; color:var(--ink-soft); flex-wrap:wrap; gap:10px;
+}
+
+/* ---------- HERO DIAGRAM (index only) ---------- */
+.hero{padding:76px 0 64px; position:relative;}
+.hero-grid{display:grid; grid-template-columns:1.1fr 0.9fr; gap:48px; align-items:center;}
+@media (max-width:860px){ .hero-grid{grid-template-columns:1fr;} }
+.hero p.lede{font-size:1.08rem; color:var(--ink-soft); max-width:46ch; margin:0 0 30px;}
+
+.hero-diagram{
+  background:var(--paper-dim); border:1px solid var(--line); border-radius:6px;
+  padding:20px; position:relative;
+}
+.hero-diagram svg{width:100%; height:auto; display:block;}
+.wf-line{
+  stroke:var(--blueprint); stroke-width:1.6; fill:none;
+  stroke-dasharray:1200; stroke-dashoffset:1200;
+  animation:draw 1.8s ease forwards;
+}
+.wf-fill{
+  fill:var(--blueprint-pale); stroke:var(--blueprint-light); stroke-width:1;
+  opacity:0; animation:fadein 0.6s ease forwards; animation-delay:1.4s;
+}
+.wf-label{
+  font-family:'IBM Plex Mono', monospace; font-size:9px; fill:var(--ink-soft);
+  opacity:0; animation:fadein 0.6s ease forwards; animation-delay:1.7s;
+}
+@keyframes draw{ to{ stroke-dashoffset:0; } }
+@keyframes fadein{ to{ opacity:1; } }
+.diagram-caption{
+  margin-top:12px; font-family:'IBM Plex Mono', monospace; font-size:11px; color:var(--ink-soft);
+  display:flex; justify-content:space-between;
+}
+.diagram-caption .rust{color:var(--rust);}
+
+
+.case-hero{padding:52px 0 40px; border-bottom:1px solid var(--line);}
+.back-link{
+  display:inline-flex; align-items:center; gap:6px; font-family:'IBM Plex Mono', monospace;
+  font-size:13px; color:var(--ink-soft); text-decoration:none; margin-bottom:24px;
+}
+.back-link:hover{color:var(--blueprint);}
+.case-meta{
+  display:flex; flex-wrap:wrap; gap:10px 28px; margin-top:26px;
+  font-family:'IBM Plex Mono', monospace; font-size:12.5px; color:var(--ink-soft);
+}
+.case-meta .m-label{color:var(--rust); text-transform:uppercase; letter-spacing:0.06em; margin-right:6px;}
+.case-lede{font-size:1.05rem; color:var(--ink-soft); max-width:62ch; margin:0;}
+
+.case-body{padding:56px 0;}
+.case-block{margin-bottom:56px;}
+.case-block:last-child{margin-bottom:0;}
+.case-block h2{
+  font-family:'Fraunces', serif; font-weight:500; font-size:1.5rem; margin:0 0 16px;
+  letter-spacing:-0.005em;
+}
+.case-block h3{font-family:'Fraunces', serif; font-weight:600; font-size:1.1rem; margin:22px 0 10px;}
+.case-block p{color:var(--ink-soft); margin:0 0 14px; max-width:70ch;}
+.case-block ul{color:var(--ink-soft); padding-left:20px; margin:0 0 14px; max-width:66ch;}
+.case-block li{margin-bottom:6px;}
+
+.figure{
+  background:var(--paper-dim); border:1px solid var(--line); border-radius:6px;
+  padding:22px; margin:22px 0;
+}
+.figure svg{width:100%; height:auto; display:block;}
+.figure-caption{
+  margin-top:12px; font-family:'IBM Plex Mono', monospace; font-size:11.5px; color:var(--ink-soft);
+}
+
+.two-col{display:grid; grid-template-columns:1fr 1fr; gap:22px;}
+@media (max-width:700px){ .two-col{grid-template-columns:1fr;} }
+
+.persona-card{
+  border:1px solid var(--line); border-radius:6px; padding:20px; background:var(--paper);
+}
+.persona-card .p-name{font-family:'Fraunces', serif; font-weight:600; font-size:1.05rem; margin:0 0 2px;}
+.persona-card .p-role{font-family:'IBM Plex Mono', monospace; font-size:11px; color:var(--rust); text-transform:uppercase; letter-spacing:0.05em; margin-bottom:12px; display:block;}
+.persona-card .p-quote{font-family:'Fraunces', serif; font-style:italic; font-weight:400; color:var(--ink); margin:0 0 14px; font-size:1rem;}
+.persona-card p{font-size:13.5px; margin:0 0 8px;}
+
+.compare{
+  display:grid; grid-template-columns:1fr 1fr; gap:0; border:1px solid var(--line);
+  border-radius:6px; overflow:hidden; margin:20px 0;
+}
+@media (max-width:700px){ .compare{grid-template-columns:1fr;} }
+.compare .c-before, .compare .c-after{padding:20px 22px;}
+.compare .c-before{background:var(--paper-dim); border-right:1px solid var(--line);}
+@media (max-width:700px){ .compare .c-before{border-right:none; border-bottom:1px solid var(--line);} }
+.compare .c-after{background:var(--paper);}
+.compare .c-label{
+  font-family:'IBM Plex Mono', monospace; font-size:11px; text-transform:uppercase; letter-spacing:0.06em;
+  display:block; margin-bottom:8px;
+}
+.compare .c-before .c-label{color:var(--ink-soft);}
+.compare .c-after .c-label{color:var(--blueprint);}
+.compare p{font-size:13.5px; margin:0; color:var(--ink-soft);}
+
+.quote-block{
+  border-left:3px solid var(--rust); padding:6px 0 6px 20px; margin:20px 0;
+}
+.quote-block p{
+  font-family:'Fraunces', serif; font-style:italic; font-size:1.05rem; color:var(--ink); margin:0;
+}
+.quote-block span{
+  display:block; margin-top:8px; font-family:'IBM Plex Mono', monospace; font-size:11.5px; color:var(--ink-soft);
+}
+
+.insight-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:16px;}
+@media (max-width:760px){ .insight-grid{grid-template-columns:1fr;} }
+.insight-card{
+  border:1px solid var(--line); border-radius:6px; padding:18px; background:var(--paper);
+}
+.insight-card .i-label{
+  font-family:'IBM Plex Mono', monospace; font-size:11px; color:var(--blueprint); text-transform:uppercase;
+  letter-spacing:0.06em; display:block; margin-bottom:10px;
+}
+.insight-card p{font-size:13px; margin:0; color:var(--ink-soft);}
+
+.case-nav{
+  display:flex; justify-content:space-between; align-items:center; padding:32px 0;
+  border-top:1px solid var(--line); margin-top:20px; gap:20px; flex-wrap:wrap;
+}
+.case-nav a{
+  font-family:'IBM Plex Mono', monospace; font-size:13px; text-decoration:none; color:var(--ink);
+  display:flex; align-items:center; gap:8px;
+}
+.case-nav a:hover{color:var(--blueprint);}
+
+.confidential-box{
+  border:1px dashed var(--line); border-radius:6px; padding:26px; background:var(--paper-dim);
+  display:flex; gap:16px; align-items:flex-start;
+}
+.confidential-box .lock-icon{font-size:22px; line-height:1;}
+.confidential-box p{margin:0; color:var(--ink-soft); font-size:14.5px;}
+
+</style>
+</head>
+<body>
+
+<header class="site-nav">
+  <div class="wrap">
+    <a href="#home" class="brandmark"><span class="bracket">[</span>MT<span class="bracket">]</span> Mallika&nbsp;Thakur</a>
+    <button class="nav-toggle" aria-label="Toggle navigation" onclick="document.querySelector('nav.links').classList.toggle('open')"><span></span></button>
+    <nav class="links">
+      <a href="#approach">Approach</a>
+      <a href="#work">Case Studies</a>
+      <a href="#skills">Skills</a>
+      <a href="#experience">Experience</a>
+      <a href="#contact">Contact</a>
+      <a href="Mallika_Thakur_Product_Designer_Resume.pdf" class="resume-btn">Résumé ↓</a>
+    </nav>
+  </div>
+</header>
+
+<section class="hero" id="home">
+  <div class="wrap hero-grid">
+    <div>
+      <span class="eyebrow">Product, UX &amp; UI Designer</span>
+      <h1 class="display">I understood people <em>before</em> I designed for them.</h1>
+      <p class="lede">Trained first in organisational psychology, now designing digital products, learning experiences and immersive concepts — from early wireframe through to validated, build-ready prototype.</p>
+      <div class="cta-row">
+        <a href="#work" class="btn btn-primary">View case studies</a>
+        <a href="Mallika_Thakur_Product_Designer_Resume.pdf" class="btn btn-ghost">Download résumé</a>
+      </div>
+    </div>
+    <div class="hero-diagram" aria-hidden="true">
+      <svg viewBox="0 0 320 220" xmlns="http://www.w3.org/2000/svg">
+        <rect class="wf-line" x="10" y="10" width="140" height="200" rx="6"/>
+        <rect class="wf-fill" x="24" y="26" width="112" height="26" rx="2"/>
+        <line class="wf-line" x1="24" y1="70" x2="136" y2="70"/>
+        <line class="wf-line" x1="24" y1="82" x2="110" y2="82"/>
+        <rect class="wf-fill" x="24" y="98" width="112" height="60" rx="2"/>
+        <line class="wf-line" x1="24" y1="98" x2="136" y2="158"/>
+        <line class="wf-line" x1="136" y1="98" x2="24" y2="158"/>
+        <rect class="wf-fill" x="24" y="172" width="50" height="16" rx="8"/>
+        <text class="wf-label" x="24" y="200">lo-fi wireframe</text>
+
+        <rect class="wf-line" x="172" y="10" width="140" height="200" rx="6"/>
+        <rect class="wf-fill" x="184" y="24" width="116" height="30" rx="3"/>
+        <text class="wf-label" x="190" y="43" style="fill:var(--blueprint); font-size:10px;">Mallika Thakur</text>
+        <rect class="wf-fill" x="184" y="64" width="116" height="70" rx="4"/>
+        <rect class="wf-fill" x="184" y="142" width="52" height="18" rx="9"/>
+        <text class="wf-label" x="190" y="154" style="fill:var(--paper); font-size:8px;">View work</text>
+        <text class="wf-label" x="184" y="200">validated prototype</text>
+      </svg>
+      <div class="diagram-caption">
+        <span>discover → define</span>
+        <span class="rust">design → validate</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="approach" class="alt">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="eyebrow">How I work</span>
+      <h2 class="section-title">A process built to reduce ambiguity, not just decorate it</h2>
+      <p>Every project below moved through the same four stages — real research and structure standing in for guesswork.</p>
+    </div>
+    <div class="process">
+      <div class="step">
+        <span class="num">01 — Discover</span>
+        <h3>Find the real friction</h3>
+        <p>Competitor research, stakeholder input and existing-system constraints, before any screen gets drawn.</p>
+      </div>
+      <div class="step">
+        <span class="num">02 — Define</span>
+        <h3>Frame who and why</h3>
+        <p>Personas, journeys and problem statements that keep every downstream decision anchored to a real user.</p>
+      </div>
+      <div class="step">
+        <span class="num">03 — Design</span>
+        <h3>Build to be tested</h3>
+        <p>Wireframes, prototypes and interaction models — made to be validated, not admired.</p>
+      </div>
+      <div class="step">
+        <span class="num">04 — Validate</span>
+        <h3>Check against reality</h3>
+        <p>Usability heuristics and structured feedback loops, so what ships is what people actually needed.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="work">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="eyebrow">Selected work</span>
+      <h2 class="section-title">Case studies</h2>
+      <p>Academic product-design case studies, independent client work and current-role practice — spanning mobile AR, app redesign, UX process, UI &amp; typography, and AI-enabled learning content. Click any project for the full process.</p>
+    </div>
+
+    <div class="work-grid">
+
+      <a href="ar-nutrimoms.html" class="card bracketed">
+        <div class="card-thumb">
+          <svg viewBox="0 0 200 130" xmlns="http://www.w3.org/2000/svg">
+            <rect x="60" y="6" width="80" height="118" rx="10" fill="none" stroke="#35577A" stroke-width="2"/>
+            <circle cx="100" cy="30" r="14" fill="#E4ECF1" stroke="#A9C3D6"/>
+            <path d="M92 34 q8 10 16 0" stroke="#35577A" stroke-width="1.6" fill="none"/>
+            <rect x="70" y="56" width="60" height="8" rx="4" fill="#E4ECF1" stroke="#A9C3D6"/>
+            <rect x="70" y="70" width="44" height="8" rx="4" fill="#E4ECF1" stroke="#A9C3D6"/>
+            <rect x="70" y="90" width="60" height="20" rx="4" fill="#E4ECF1" stroke="#A9C3D6"/>
+          </svg>
+        </div>
+        <span class="role">Specialist Project · MA Digital Design Futures</span>
+        <h3>AR NutriMoms</h3>
+        <p class="desc">A mobile augmented-reality app guiding expectant mothers through prenatal nutrition — market sizing, a 4-app competitor analysis, SWOT, business model canvas, personas and moderated user evaluation.</p>
+        <div class="tags">
+          <span class="tag">Market Analysis</span>
+          <span class="tag">Competitor Matrix</span>
+          <span class="tag">Personas</span>
+          <span class="tag">AR Prototyping</span>
+        </div>
+      </a>
+
+      <a href="virtual-tarot.html" class="card bracketed">
+        <div class="card-thumb">
+          <svg viewBox="0 0 200 130" xmlns="http://www.w3.org/2000/svg">
+            <rect x="70" y="20" width="60" height="90" rx="6" fill="#E4ECF1" stroke="#35577A" stroke-width="1.6" transform="rotate(-8 100 65)"/>
+            <rect x="90" y="20" width="60" height="90" rx="6" fill="#F6F6F3" stroke="#A9C3D6" stroke-width="1.6"/>
+            <circle cx="120" cy="50" r="10" fill="none" stroke="#B0502F" stroke-width="1.4"/>
+            <line x1="105" y1="75" x2="135" y2="75" stroke="#A9C3D6" stroke-width="1.6"/>
+            <line x1="105" y1="88" x2="135" y2="88" stroke="#A9C3D6" stroke-width="1.6"/>
+          </svg>
+        </div>
+        <span class="role">Immersion &amp; Engagement · MA Digital Design Futures</span>
+        <h3>Virtual Tarot</h3>
+        <p class="desc">A mixed reality tarot app for HoloLens — market sizing, competitor analysis, SWOT and three personas, feeding a working ChatGPT-integrated prototype.</p>
+        <div class="tags">
+          <span class="tag">Market Analysis</span>
+          <span class="tag">Personas</span>
+          <span class="tag">Mixed Reality</span>
+          <span class="tag">AI Integration</span>
+        </div>
+      </a>
+
+      <a href="app-redesign-unileeds.html" class="card bracketed">
+        <div class="card-thumb">
+          <svg viewBox="0 0 200 130" xmlns="http://www.w3.org/2000/svg">
+            <rect x="20" y="10" width="70" height="110" rx="8" fill="none" stroke="#A9C3D6" stroke-width="2"/>
+            <rect x="30" y="20" width="50" height="6" rx="3" fill="#E4ECF1"/>
+            <rect x="30" y="34" width="50" height="6" rx="3" fill="#E4ECF1"/>
+            <rect x="30" y="48" width="30" height="6" rx="3" fill="#E4ECF1"/>
+            <path d="M96 65 L124 65" stroke="#B0502F" stroke-width="2" marker-end="url(#arrow)"/>
+            <defs>
+              <marker id="arrow" markerWidth="8" markerHeight="8" refX="4" refY="4" orient="auto">
+                <path d="M0,0 L8,4 L0,8 Z" fill="#B0502F"/>
+              </marker>
+            </defs>
+            <rect x="130" y="10" width="70" height="110" rx="8" fill="none" stroke="#35577A" stroke-width="2"/>
+            <rect x="140" y="22" width="50" height="14" rx="4" fill="#E4ECF1" stroke="#A9C3D6"/>
+            <rect x="140" y="42" width="50" height="34" rx="4" fill="#E4ECF1" stroke="#A9C3D6"/>
+            <rect x="140" y="82" width="50" height="10" rx="5" fill="#E4ECF1"/>
+          </svg>
+        </div>
+        <span class="role">Experiential Practice · MA Digital Design Futures</span>
+        <h3>App Redesign: UniLeeds</h3>
+        <p class="desc">Full UX/UI redesign of a fragmented university student app — one-time sign-in, restructured IA, and a documented before/after against usability heuristics.</p>
+        <div class="tags">
+          <span class="tag">User Flow</span>
+          <span class="tag">Adobe XD</span>
+          <span class="tag">Usability Heuristics</span>
+          <span class="tag">Prototyping</span>
+        </div>
+      </a>
+
+      <a href="local-grub.html" class="card bracketed">
+        <div class="card-thumb">
+          <svg viewBox="0 0 200 130" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="55" cy="40" r="20" fill="#E4ECF1" stroke="#A9C3D6" stroke-width="1.6"/>
+            <path d="M48 40 h14 M55 33 v14" stroke="#35577A" stroke-width="1.6"/>
+            <path d="M55 60 L55 78" stroke="#A9C3D6" stroke-width="1.6" stroke-dasharray="3 3"/>
+            <rect x="30" y="82" width="50" height="30" rx="4" fill="none" stroke="#35577A" stroke-width="1.6"/>
+            <rect x="120" y="24" width="60" height="10" rx="2" fill="#E4ECF1" stroke="#A9C3D6"/>
+            <rect x="120" y="42" width="60" height="10" rx="2" fill="#E4ECF1" stroke="#A9C3D6"/>
+            <rect x="120" y="60" width="40" height="10" rx="2" fill="#E4ECF1" stroke="#A9C3D6"/>
+            <rect x="120" y="90" width="60" height="18" rx="9" fill="none" stroke="#B0502F" stroke-width="1.6"/>
+          </svg>
+        </div>
+        <span class="role">UX Case Study · Independent Practice</span>
+        <h3>Local Grub</h3>
+        <p class="desc">End-to-end UX for a food &amp; grocery delivery concept — user personas, journey mapping, information architecture and a full low-to-high-fidelity user flow.</p>
+        <div class="tags">
+          <span class="tag">Personas</span>
+          <span class="tag">Journey Mapping</span>
+          <span class="tag">User Flow</span>
+          <span class="tag">Wireframing</span>
+        </div>
+      </a>
+
+      <a href="the-social-worth.html" class="card bracketed">
+        <div class="card-thumb">
+          <svg viewBox="0 0 200 130" xmlns="http://www.w3.org/2000/svg">
+            <rect x="30" y="20" width="140" height="90" rx="4" fill="none" stroke="#35577A" stroke-width="1.6"/>
+            <text x="42" y="42" font-family="Fraunces, serif" font-size="14" fill="#35577A">Aa</text>
+            <line x1="90" y1="34" x2="158" y2="34" stroke="#A9C3D6" stroke-width="1.6"/>
+            <line x1="42" y1="60" x2="158" y2="60" stroke="#E4ECF1" stroke-width="6"/>
+            <line x1="42" y1="72" x2="140" y2="72" stroke="#E4ECF1" stroke-width="6"/>
+            <line x1="42" y1="84" x2="150" y2="84" stroke="#E4ECF1" stroke-width="6"/>
+            <rect x="42" y="94" width="30" height="8" rx="4" fill="#B0502F" opacity="0.7"/>
+          </svg>
+        </div>
+        <span class="role">UI Case Study · Independent Practice</span>
+        <h3>The Social Worth</h3>
+        <p class="desc">A typography-first UI design for a content &amp; blogging platform — readability, type hierarchy and a consistent black-and-white interface system.</p>
+        <div class="tags">
+          <span class="tag">Typography</span>
+          <span class="tag">Information Hierarchy</span>
+          <span class="tag">Responsive UI</span>
+        </div>
+      </a>
+
+      <a href="brand-identity.html" class="card bracketed">
+        <div class="card-thumb">
+          <svg viewBox="0 0 200 130" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="70" cy="60" r="34" fill="none" stroke="#35577A" stroke-width="2"/>
+            <circle cx="70" cy="60" r="34" fill="none" stroke="#B0502F" stroke-width="2" stroke-dasharray="8 6"/>
+            <rect x="120" y="30" width="60" height="10" rx="2" fill="#E4ECF1" stroke="#A9C3D6"/>
+            <rect x="120" y="48" width="60" height="10" rx="2" fill="#E4ECF1" stroke="#A9C3D6"/>
+            <rect x="120" y="66" width="40" height="10" rx="2" fill="#E4ECF1" stroke="#A9C3D6"/>
+            <rect x="120" y="88" width="60" height="18" rx="4" fill="none" stroke="#35577A" stroke-width="1.6"/>
+          </svg>
+        </div>
+        <span class="role">Freelance · UX &amp; Graphic Design</span>
+        <h3>Visual &amp; Brand Identity — ITHRIVE &amp; Shribalaji</h3>
+        <p class="desc">End-to-end branding and web design for two independent clients — logo concept, colour psychology, typeface systems and responsive web design.</p>
+        <div class="tags">
+          <span class="tag">Brand Identity</span>
+          <span class="tag">Colour Systems</span>
+          <span class="tag">Web Design</span>
+        </div>
+      </a>
+
+      <a href="gratitude-ar.html" class="card bracketed">
+        <div class="card-thumb">
+          <svg viewBox="0 0 200 130" xmlns="http://www.w3.org/2000/svg">
+            <path d="M50 78 q-4 -20 18 -22 q22 -3 24 16 q2 18 -20 20 q-20 2 -22 -14 z" fill="#FFA1E5" stroke="#B0502F" stroke-width="1.4"/>
+            <path d="M105 55 q-2 -14 14 -15 q15 -1 16 12 q1 13 -14 14 q-14 1 -16 -11 z" fill="#C9FFC4" stroke="#3B6D11" stroke-width="1.4"/>
+            <path d="M128 88 q-3 -16 16 -18 q18 -2 20 14 q2 15 -17 17 q-17 2 -19 -13 z" fill="#A9C3D6" stroke="#35577A" stroke-width="1.4"/>
+            <rect x="20" y="105" width="160" height="4" fill="#D6D6D0"/>
+          </svg>
+        </div>
+        <span class="role">Experiential Practice · MA Digital Design Futures</span>
+        <h3>AR Design: Gratitude for Well-being</h3>
+        <p class="desc">A mobile AR concept turning the "gratitude stone" mindfulness practice into always-available virtual stones — desk research, digital sketching and an Adobe Aero prototype.</p>
+        <div class="tags">
+          <span class="tag">AR Prototyping</span>
+          <span class="tag">Adobe Aero</span>
+          <span class="tag">Behaviour Design</span>
+        </div>
+      </a>
+
+      <a href="royal-coronation-vr.html" class="card bracketed">
+        <div class="card-thumb">
+          <svg viewBox="0 0 200 130" xmlns="http://www.w3.org/2000/svg">
+            <path d="M50 78 h50 v-10 l-8 -20 l-9 14 l-8 -22 l-8 22 l-9 -14 l-8 20 z" fill="none" stroke="#FFCB14" stroke-width="2" stroke-linejoin="round"/>
+            <circle cx="58" cy="46" r="2.6" fill="#FFCB14"/>
+            <circle cx="75" cy="38" r="2.6" fill="#FFCB14"/>
+            <circle cx="92" cy="46" r="2.6" fill="#FFCB14"/>
+            <line x1="50" y1="86" x2="100" y2="86" stroke="#FFCB14" stroke-width="2"/>
+            <rect x="118" y="55" width="62" height="34" rx="14" fill="none" stroke="#A9C3D6" stroke-width="2.2"/>
+            <circle cx="138" cy="72" r="9" fill="#E4ECF1" stroke="#35577A" stroke-width="1.6"/>
+            <circle cx="162" cy="72" r="9" fill="#E4ECF1" stroke="#35577A" stroke-width="1.6"/>
+            <path d="M118 68 h-8 M180 68 h8" stroke="#A9C3D6" stroke-width="2"/>
+          </svg>
+        </div>
+        <span class="role">Experiential Practice · MA Digital Design Futures · Team project</span>
+        <h3>VR Design: The Royal Coronation</h3>
+        <p class="desc">A collaborative first-person VR experience teaching the history of the British coronation ceremony — shared storyboarding, Blender 3D modelling, and a Unity build.</p>
+        <div class="tags">
+          <span class="tag">VR</span>
+          <span class="tag">Collaboration</span>
+          <span class="tag">Blender</span>
+        </div>
+      </a>
+
+      <a href="interrogate-the-truth.html" class="card bracketed">
+        <div class="card-thumb">
+          <svg viewBox="0 0 200 130" xmlns="http://www.w3.org/2000/svg">
+            <ellipse cx="90" cy="65" rx="55" ry="38" fill="none" stroke="#565B60" stroke-width="1.6"/>
+            <rect x="65" y="42" width="50" height="34" rx="3" fill="#E4ECF1" stroke="#35577A" stroke-width="1.4"/>
+            <circle cx="130" cy="35" r="6" fill="#FFA1E5"/>
+            <circle cx="140" cy="55" r="5" fill="#C9FFC4"/>
+            <circle cx="125" cy="70" r="6" fill="#A9C3D6"/>
+            <circle cx="145" cy="85" r="4" fill="#B0502F"/>
+          </svg>
+        </div>
+        <span class="role">Immersion &amp; Engagement · MA Digital Design Futures · Team project</span>
+        <h3>VR Design: Interrogate the Truth</h3>
+        <p class="desc">A collaborative VR animation on racial injustice in British education — case-study-driven design thinking, tool evaluation, and concept reshaped by real user feedback.</p>
+        <div class="tags">
+          <span class="tag">Collaboration</span>
+          <span class="tag">Storyboarding</span>
+          <span class="tag">360° Production</span>
+        </div>
+      </a>
+
+      <a href="niit-immersive-learning.html" class="card bracketed locked">
+        <div class="card-thumb" style="background:var(--paper); border-style:dashed;">
+          <svg viewBox="0 0 100 80" width="60" xmlns="http://www.w3.org/2000/svg">
+            <rect x="30" y="34" width="40" height="30" rx="4" fill="none" stroke="#A9C3D6" stroke-width="2.4"/>
+            <path d="M38 34 v-10 a12 12 0 0 1 24 0 v10" fill="none" stroke="#A9C3D6" stroke-width="2.4"/>
+            <circle cx="50" cy="49" r="3" fill="#A9C3D6"/>
+          </svg>
+        </div>
+        <span class="role">Current Role · NIIT MTS UK</span>
+        <h3>AI-Enabled Immersive eLearning</h3>
+        <p class="desc">Leading UX/UI and content design for scenario-based, AI-enabled learning experiences — process and approach detailed, screens withheld under NDA.</p>
+        <div class="lock-note">🔒 Client work confidential — process detail inside, visuals available in interview.</div>
+      </a>
+
+    </div>
+  </div>
+</section>
+
+<section id="skills" class="alt">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="eyebrow">Toolkit</span>
+      <h2 class="section-title">Skills &amp; tools</h2>
+    </div>
+    <div class="skills-grid">
+      <div class="skill-block">
+        <span class="label">Product &amp; UX Design</span>
+        <p>Wireframing, prototyping, user journey mapping, concept validation, interaction design, usability principles, information architecture, scenario-based &amp; simulation design.</p>
+      </div>
+      <div class="skill-block">
+        <span class="label">Design Tools</span>
+        <p>Figma, Adobe XD, Sketch, Adobe Creative Suite, Miro, InVision, Unity (XR prototyping).</p>
+      </div>
+      <div class="skill-block">
+        <span class="label">Collaboration &amp; Delivery</span>
+        <p>Cross-functional work with Product Managers &amp; engineers, stakeholder management, design thinking, structured problem-solving, early feasibility assessment.</p>
+      </div>
+      <div class="skill-block">
+        <span class="label">Emerging Practice</span>
+        <p>AI-enabled design workflows, prompt engineering, vibe coding (Claude Code, Cursor AI, GitHub Copilot), rapid AI-assisted prototyping.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="experience">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="eyebrow">Background</span>
+      <h2 class="section-title">Experience &amp; education</h2>
+    </div>
+    <div class="timeline">
+      <div class="tl-item">
+        <span class="when">June 2023 — Present</span>
+        <h3>UI/UX &amp; Learning Experience Designer</h3>
+        <span class="org">NIIT MTS UK · Sheffield, UK</span>
+        <p>Leading end-to-end design of AI-enabled immersive and eLearning experiences, from discovery and storyboarding through wireframing, interaction design and developer handoff. <a href="niit-immersive-learning.html">See approach →</a></p>
+      </div>
+      <div class="tl-item">
+        <span class="when">Sep 2022 — Sep 2023</span>
+        <h3>MA Digital Design Futures — Awarded with Distinction</h3>
+        <span class="org">University of Leeds, UK</span>
+        <p>Applied UX/UI and product design thinking to immersive XR (VR/AR/MR) experiences, mobile AR concepts, and full app redesigns.</p>
+      </div>
+      <div class="tl-item">
+        <span class="when">Jan 2020 — Aug 2022</span>
+        <h3>UX &amp; Graphic Designer (Freelance)</h3>
+        <span class="org">Self-Employed · India</span>
+        <p>End-to-end brand and digital design for independent clients — including the ITHRIVE and Shribalaji Integrated Solutions rebrands featured above — the self-directed pivot that built foundational UX/UI skills.</p>
+      </div>
+      <div class="tl-item">
+        <span class="when">Aug 2010 — Dec 2018</span>
+        <h3>HR &amp; Organisational Learning Roles</h3>
+        <span class="org">WNS Global Services, Express KCS, Mars International, Ranbaxy · India</span>
+        <p>Talent acquisition, talent management and HR business partnering — the foundation in user behaviour and stakeholder engagement that now underpins a user-centred design practice.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer id="contact">
+  <div class="wrap">
+    <div class="contact-box">
+      <h2>Let's talk about your product</h2>
+      <p>Based in Sheffield, UK. Open to Product, UX &amp; UI Designer roles — remote, hybrid or on-site, anywhere in the UK.</p>
+      <div class="contact-links">
+        <a href="mailto:mallikathakur@hotmail.com" class="btn btn-primary">mallikathakur@hotmail.com</a>
+        <a href="https://www.linkedin.com/in/mallikathakur-077912b8" class="btn btn-ghost" target="_blank" rel="noopener">LinkedIn ↗</a>
+        <a href="Mallika_Thakur_Product_Designer_Resume.pdf" class="btn btn-ghost">Résumé ↓</a>
+      </div>
+    </div>
+    <div class="foot-meta wrap" style="padding:0;">
+      <span>Mallika Thakur — Product, UX &amp; UI Designer</span>
+      <span>Sheffield, UK</span>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>

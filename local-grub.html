@@ -1,0 +1,501 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Local Grub — Mallika Thakur</title>
+<meta name="description" content="Case study: UX design for a food and grocery delivery app">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,500;0,9..144,600;1,9..144,400&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#F6F6F3;
+  --paper-dim:#EFEEE9;
+  --ink:#1C2024;
+  --ink-soft:#565B60;
+  --blueprint:#35577A;
+  --blueprint-light:#A9C3D6;
+  --blueprint-pale:#E4ECF1;
+  --rust:#B0502F;
+  --line:#D6D6D0;
+  --radius:2px;
+  --maxw:1040px;
+  --maxw-read:760px;
+}
+
+*{box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+@media (prefers-reduced-motion: reduce){
+  html{scroll-behavior:auto;}
+  *{animation-duration:0.001ms !important; animation-iteration-count:1 !important; transition-duration:0.001ms !important;}
+}
+
+body{
+  margin:0;
+  background:var(--paper);
+  color:var(--ink);
+  font-family:'Inter', sans-serif;
+  font-size:16px;
+  line-height:1.6;
+  -webkit-font-smoothing:antialiased;
+}
+
+a{color:var(--blueprint);}
+a:focus-visible, button:focus-visible{outline:2px solid var(--rust); outline-offset:3px;}
+
+.wrap{max-width:var(--maxw); margin:0 auto; padding:0 28px;}
+.wrap-read{max-width:var(--maxw-read); margin:0 auto; padding:0 28px;}
+
+.mono{font-family:'IBM Plex Mono', monospace; letter-spacing:0.02em;}
+
+/* ---------- NAV ---------- */
+header.site-nav{
+  position:sticky; top:0; z-index:50;
+  background:rgba(246,246,243,0.92);
+  backdrop-filter:blur(6px);
+  border-bottom:1px solid var(--line);
+}
+.site-nav .wrap{
+  display:flex; align-items:center; justify-content:space-between;
+  height:64px;
+}
+.brandmark{
+  display:flex; align-items:center; gap:8px;
+  font-family:'IBM Plex Mono', monospace;
+  font-size:14px;
+  color:var(--ink);
+  text-decoration:none;
+}
+.brandmark .bracket{color:var(--rust); font-weight:500;}
+nav.links{display:flex; gap:28px; align-items:center;}
+nav.links a{
+  color:var(--ink-soft); text-decoration:none; font-size:14px; font-weight:500;
+  padding:6px 2px; border-bottom:1px solid transparent;
+}
+nav.links a:hover{color:var(--ink); border-bottom-color:var(--blueprint-light);}
+.resume-btn{
+  background:var(--ink); color:var(--paper) !important; padding:9px 16px;
+  border-radius:var(--radius); font-size:13px; font-weight:500;
+  text-decoration:none; border-bottom:none !important;
+}
+.resume-btn:hover{background:var(--blueprint);}
+.nav-toggle{display:none;}
+
+@media (max-width: 720px){
+  nav.links{
+    position:fixed; inset:64px 0 0 0; background:var(--paper);
+    flex-direction:column; align-items:flex-start; padding:24px 28px;
+    transform:translateY(-8px); opacity:0; pointer-events:none;
+    transition:opacity .18s ease, transform .18s ease;
+  }
+  nav.links.open{opacity:1; pointer-events:auto; transform:translateY(0);}
+  nav.links a{font-size:18px; padding:12px 0; width:100%; border-bottom:1px solid var(--line);}
+  .nav-toggle{
+    display:block; background:none; border:1px solid var(--line); border-radius:var(--radius);
+    width:38px; height:34px; cursor:pointer; position:relative;
+  }
+  .nav-toggle span, .nav-toggle span::before, .nav-toggle span::after{
+    content:''; position:absolute; left:9px; width:20px; height:2px; background:var(--ink);
+  }
+  .nav-toggle span{top:16px;}
+  .nav-toggle span::before{top:-6px;}
+  .nav-toggle span::after{top:6px;}
+}
+
+/* ---------- CORNER BRACKET MOTIF ---------- */
+.bracketed{position:relative;}
+.bracketed::before, .bracketed::after{
+  content:''; position:absolute; width:14px; height:14px; pointer-events:none;
+}
+.bracketed::before{ top:-1px; left:-1px; border-top:2px solid var(--rust); border-left:2px solid var(--rust); }
+.bracketed::after{ bottom:-1px; right:-1px; border-bottom:2px solid var(--rust); border-right:2px solid var(--rust); }
+
+/* ---------- TYPE ---------- */
+.eyebrow{
+  font-family:'IBM Plex Mono', monospace; font-size:12px; color:var(--rust);
+  text-transform:uppercase; letter-spacing:0.12em; margin-bottom:14px; display:block;
+}
+h1.display{
+  font-family:'Fraunces', serif; font-weight:500; font-size:clamp(2.2rem, 4.6vw, 3.4rem);
+  line-height:1.08; margin:0 0 20px; letter-spacing:-0.01em;
+}
+h1.display em{font-style:italic; font-weight:300; color:var(--blueprint);}
+
+.cta-row{display:flex; gap:14px; flex-wrap:wrap;}
+.btn{
+  display:inline-flex; align-items:center; gap:8px;
+  padding:12px 20px; border-radius:var(--radius); text-decoration:none;
+  font-size:14px; font-weight:600; border:1px solid transparent; cursor:pointer;
+}
+.btn-primary{background:var(--ink); color:var(--paper);}
+.btn-primary:hover{background:var(--blueprint);}
+.btn-ghost{background:transparent; color:var(--ink); border-color:var(--line);}
+.btn-ghost:hover{border-color:var(--ink);}
+
+/* ---------- SECTION SHELL ---------- */
+section{padding:64px 0;}
+section.alt{background:var(--paper-dim); border-top:1px solid var(--line); border-bottom:1px solid var(--line);}
+section.tight{padding:44px 0;}
+.section-head{margin-bottom:40px; max-width:60ch;}
+.section-head .eyebrow{margin-bottom:10px;}
+h2.section-title{
+  font-family:'Fraunces', serif; font-weight:500; font-size:clamp(1.6rem, 3vw, 2.2rem);
+  margin:0 0 12px; letter-spacing:-0.01em;
+}
+.section-head p{color:var(--ink-soft); margin:0;}
+
+/* ---------- WORK GRID / CARDS (index) ---------- */
+.work-grid{display:grid; grid-template-columns:1fr 1fr; gap:26px;}
+@media (max-width:760px){ .work-grid{grid-template-columns:1fr;} }
+
+.card{
+  background:var(--paper); border:1px solid var(--line); border-radius:6px;
+  padding:22px; display:flex; flex-direction:column; gap:14px;
+  transition:border-color .15s ease, transform .15s ease;
+  text-decoration:none; color:var(--ink);
+}
+.card:hover{border-color:var(--blueprint-light); transform:translateY(-2px);}
+.card.locked{background:var(--paper-dim);}
+.card-thumb{
+  background:var(--blueprint-pale); border:1px solid var(--line); border-radius:4px;
+  aspect-ratio:16/10; display:flex; align-items:center; justify-content:center; overflow:hidden;
+}
+.card-thumb svg{width:88%; height:88%;}
+.card h3{font-family:'Fraunces', serif; font-weight:600; font-size:1.2rem; margin:0;}
+.card .role{font-family:'IBM Plex Mono', monospace; font-size:11.5px; color:var(--rust); text-transform:uppercase; letter-spacing:0.06em;}
+.card p.desc{color:var(--ink-soft); font-size:14.5px; margin:0;}
+.tags{display:flex; flex-wrap:wrap; gap:8px; margin-top:auto;}
+.tag{
+  font-family:'IBM Plex Mono', monospace; font-size:11px; color:var(--ink-soft);
+  background:var(--paper-dim); border:1px solid var(--line); padding:4px 9px; border-radius:20px;
+}
+.card.locked .tag{background:var(--paper);}
+.lock-note{
+  display:flex; align-items:center; gap:8px; font-size:13px; color:var(--ink-soft); font-style:italic;
+}
+
+/* ---------- SKILLS ---------- */
+.skills-grid{display:grid; grid-template-columns:repeat(2,1fr); gap:28px;}
+@media (max-width:760px){ .skills-grid{grid-template-columns:1fr;} }
+.skill-block .label{
+  font-family:'IBM Plex Mono', monospace; font-size:12px; color:var(--blueprint);
+  text-transform:uppercase; letter-spacing:0.08em; display:block; margin-bottom:10px;
+}
+.skill-block p{margin:0; color:var(--ink-soft); font-size:14.5px;}
+
+/* ---------- PROCESS STEPS ---------- */
+.process{
+  display:grid; grid-template-columns:repeat(4, 1fr); gap:0;
+  border:1px solid var(--line); border-radius:6px; overflow:hidden;
+}
+@media (max-width:760px){ .process{grid-template-columns:1fr;} }
+.process .step{
+  padding:26px 22px; background:var(--paper); position:relative;
+  border-right:1px solid var(--line);
+}
+.process .step:last-child{border-right:none;}
+@media (max-width:760px){ .process .step{border-right:none; border-bottom:1px solid var(--line);} .process .step:last-child{border-bottom:none;} }
+.step .num{
+  font-family:'IBM Plex Mono', monospace; font-size:12px; color:var(--blueprint);
+  display:block; margin-bottom:10px;
+}
+.step h3{font-family:'Fraunces', serif; font-size:1.05rem; font-weight:600; margin:0 0 8px;}
+.step p{font-size:13.5px; color:var(--ink-soft); margin:0;}
+
+/* ---------- EXPERIENCE TIMELINE ---------- */
+.timeline{border-left:2px solid var(--line); margin-left:6px; padding-left:26px;}
+.tl-item{position:relative; padding-bottom:32px;}
+.tl-item:last-child{padding-bottom:0;}
+.tl-item::before{
+  content:''; position:absolute; left:-32px; top:4px; width:10px; height:10px;
+  background:var(--paper); border:2px solid var(--blueprint); border-radius:50%;
+}
+.tl-item .when{font-family:'IBM Plex Mono', monospace; font-size:12px; color:var(--rust); display:block; margin-bottom:4px;}
+.tl-item h3{font-family:'Fraunces', serif; font-size:1.05rem; font-weight:600; margin:0 0 4px;}
+.tl-item .org{color:var(--ink-soft); font-size:13.5px; margin-bottom:8px; display:block;}
+.tl-item p{margin:0; font-size:14px; color:var(--ink-soft); max-width:60ch;}
+
+/* ---------- CONTACT / FOOTER ---------- */
+footer{padding:70px 0 46px;}
+.contact-box{
+  border:1px solid var(--line); border-radius:6px; padding:44px; text-align:center;
+  background:var(--paper-dim);
+}
+.contact-box h2{font-family:'Fraunces', serif; font-weight:500; font-size:clamp(1.6rem,3vw,2.1rem); margin:0 0 14px;}
+.contact-box p{color:var(--ink-soft); margin:0 0 26px;}
+.contact-links{display:flex; gap:16px; justify-content:center; flex-wrap:wrap;}
+.foot-meta{
+  margin-top:40px; display:flex; justify-content:space-between; align-items:center;
+  font-family:'IBM Plex Mono', monospace; font-size:12px; color:var(--ink-soft); flex-wrap:wrap; gap:10px;
+}
+
+/* ---------- HERO DIAGRAM (index only) ---------- */
+.hero{padding:76px 0 64px; position:relative;}
+.hero-grid{display:grid; grid-template-columns:1.1fr 0.9fr; gap:48px; align-items:center;}
+@media (max-width:860px){ .hero-grid{grid-template-columns:1fr;} }
+.hero p.lede{font-size:1.08rem; color:var(--ink-soft); max-width:46ch; margin:0 0 30px;}
+
+.hero-diagram{
+  background:var(--paper-dim); border:1px solid var(--line); border-radius:6px;
+  padding:20px; position:relative;
+}
+.hero-diagram svg{width:100%; height:auto; display:block;}
+.wf-line{
+  stroke:var(--blueprint); stroke-width:1.6; fill:none;
+  stroke-dasharray:1200; stroke-dashoffset:1200;
+  animation:draw 1.8s ease forwards;
+}
+.wf-fill{
+  fill:var(--blueprint-pale); stroke:var(--blueprint-light); stroke-width:1;
+  opacity:0; animation:fadein 0.6s ease forwards; animation-delay:1.4s;
+}
+.wf-label{
+  font-family:'IBM Plex Mono', monospace; font-size:9px; fill:var(--ink-soft);
+  opacity:0; animation:fadein 0.6s ease forwards; animation-delay:1.7s;
+}
+@keyframes draw{ to{ stroke-dashoffset:0; } }
+@keyframes fadein{ to{ opacity:1; } }
+.diagram-caption{
+  margin-top:12px; font-family:'IBM Plex Mono', monospace; font-size:11px; color:var(--ink-soft);
+  display:flex; justify-content:space-between;
+}
+.diagram-caption .rust{color:var(--rust);}
+
+
+.case-hero{padding:52px 0 40px; border-bottom:1px solid var(--line);}
+.back-link{
+  display:inline-flex; align-items:center; gap:6px; font-family:'IBM Plex Mono', monospace;
+  font-size:13px; color:var(--ink-soft); text-decoration:none; margin-bottom:24px;
+}
+.back-link:hover{color:var(--blueprint);}
+.case-meta{
+  display:flex; flex-wrap:wrap; gap:10px 28px; margin-top:26px;
+  font-family:'IBM Plex Mono', monospace; font-size:12.5px; color:var(--ink-soft);
+}
+.case-meta .m-label{color:var(--rust); text-transform:uppercase; letter-spacing:0.06em; margin-right:6px;}
+.case-lede{font-size:1.05rem; color:var(--ink-soft); max-width:62ch; margin:0;}
+
+.case-body{padding:56px 0;}
+.case-block{margin-bottom:56px;}
+.case-block:last-child{margin-bottom:0;}
+.case-block h2{
+  font-family:'Fraunces', serif; font-weight:500; font-size:1.5rem; margin:0 0 16px;
+  letter-spacing:-0.005em;
+}
+.case-block h3{font-family:'Fraunces', serif; font-weight:600; font-size:1.1rem; margin:22px 0 10px;}
+.case-block p{color:var(--ink-soft); margin:0 0 14px; max-width:70ch;}
+.case-block ul{color:var(--ink-soft); padding-left:20px; margin:0 0 14px; max-width:66ch;}
+.case-block li{margin-bottom:6px;}
+
+.figure{
+  background:var(--paper-dim); border:1px solid var(--line); border-radius:6px;
+  padding:22px; margin:22px 0;
+}
+.figure svg{width:100%; height:auto; display:block;}
+.figure-caption{
+  margin-top:12px; font-family:'IBM Plex Mono', monospace; font-size:11.5px; color:var(--ink-soft);
+}
+
+.two-col{display:grid; grid-template-columns:1fr 1fr; gap:22px;}
+@media (max-width:700px){ .two-col{grid-template-columns:1fr;} }
+
+.persona-card{
+  border:1px solid var(--line); border-radius:6px; padding:20px; background:var(--paper);
+}
+.persona-card .p-name{font-family:'Fraunces', serif; font-weight:600; font-size:1.05rem; margin:0 0 2px;}
+.persona-card .p-role{font-family:'IBM Plex Mono', monospace; font-size:11px; color:var(--rust); text-transform:uppercase; letter-spacing:0.05em; margin-bottom:12px; display:block;}
+.persona-card .p-quote{font-family:'Fraunces', serif; font-style:italic; font-weight:400; color:var(--ink); margin:0 0 14px; font-size:1rem;}
+.persona-card p{font-size:13.5px; margin:0 0 8px;}
+
+.compare{
+  display:grid; grid-template-columns:1fr 1fr; gap:0; border:1px solid var(--line);
+  border-radius:6px; overflow:hidden; margin:20px 0;
+}
+@media (max-width:700px){ .compare{grid-template-columns:1fr;} }
+.compare .c-before, .compare .c-after{padding:20px 22px;}
+.compare .c-before{background:var(--paper-dim); border-right:1px solid var(--line);}
+@media (max-width:700px){ .compare .c-before{border-right:none; border-bottom:1px solid var(--line);} }
+.compare .c-after{background:var(--paper);}
+.compare .c-label{
+  font-family:'IBM Plex Mono', monospace; font-size:11px; text-transform:uppercase; letter-spacing:0.06em;
+  display:block; margin-bottom:8px;
+}
+.compare .c-before .c-label{color:var(--ink-soft);}
+.compare .c-after .c-label{color:var(--blueprint);}
+.compare p{font-size:13.5px; margin:0; color:var(--ink-soft);}
+
+.quote-block{
+  border-left:3px solid var(--rust); padding:6px 0 6px 20px; margin:20px 0;
+}
+.quote-block p{
+  font-family:'Fraunces', serif; font-style:italic; font-size:1.05rem; color:var(--ink); margin:0;
+}
+.quote-block span{
+  display:block; margin-top:8px; font-family:'IBM Plex Mono', monospace; font-size:11.5px; color:var(--ink-soft);
+}
+
+.insight-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:16px;}
+@media (max-width:760px){ .insight-grid{grid-template-columns:1fr;} }
+.insight-card{
+  border:1px solid var(--line); border-radius:6px; padding:18px; background:var(--paper);
+}
+.insight-card .i-label{
+  font-family:'IBM Plex Mono', monospace; font-size:11px; color:var(--blueprint); text-transform:uppercase;
+  letter-spacing:0.06em; display:block; margin-bottom:10px;
+}
+.insight-card p{font-size:13px; margin:0; color:var(--ink-soft);}
+
+.case-nav{
+  display:flex; justify-content:space-between; align-items:center; padding:32px 0;
+  border-top:1px solid var(--line); margin-top:20px; gap:20px; flex-wrap:wrap;
+}
+.case-nav a{
+  font-family:'IBM Plex Mono', monospace; font-size:13px; text-decoration:none; color:var(--ink);
+  display:flex; align-items:center; gap:8px;
+}
+.case-nav a:hover{color:var(--blueprint);}
+
+.confidential-box{
+  border:1px dashed var(--line); border-radius:6px; padding:26px; background:var(--paper-dim);
+  display:flex; gap:16px; align-items:flex-start;
+}
+.confidential-box .lock-icon{font-size:22px; line-height:1;}
+.confidential-box p{margin:0; color:var(--ink-soft); font-size:14.5px;}
+
+</style>
+</head>
+<body>
+
+<header class="site-nav">
+  <div class="wrap">
+    <a href="index.html" class="brandmark"><span class="bracket">[</span>MT<span class="bracket">]</span> Mallika&nbsp;Thakur</a>
+    <button class="nav-toggle" aria-label="Toggle navigation" onclick="document.querySelector('nav.links').classList.toggle('open')"><span></span></button>
+    <nav class="links">
+      <a href="index.html#work">Case Studies</a>
+      <a href="index.html#skills">Skills</a>
+      <a href="index.html#experience">Experience</a>
+      <a href="index.html#contact">Contact</a>
+      <a href="Mallika_Thakur_Product_Designer_Resume.pdf" class="resume-btn">Résumé ↓</a>
+    </nav>
+  </div>
+</header>
+
+<section class="case-hero">
+  <div class="wrap-read">
+    <a href="index.html#work" class="back-link">← Back to case studies</a>
+    <span class="eyebrow">UX Case Study · Independent Practice</span>
+    <h1 class="display">Local Grub</h1>
+    <p class="case-lede">An end-to-end UX process for a food and grocery delivery concept built for smaller towns and cities — the underserved middle ground between big-city delivery apps and no delivery option at all.</p>
+    <div class="case-meta">
+      <span><span class="m-label">Role</span>Solo UX designer</span>
+      <span><span class="m-label">Type</span>Independent UX practice project</span>
+      <span><span class="m-label">Methods</span>Competitive analysis · personas · journey mapping · wireframing</span>
+    </div>
+  </div>
+</section>
+
+<section class="case-body">
+  <div class="wrap-read">
+
+    <div class="case-block">
+      <h2>The brief</h2>
+      <p>Most food-and-grocery delivery apps concentrate on large metropolitan cities, leaving smaller towns underserved despite real demand. Local Grub's premise: a direct-to-consumer delivery platform for smaller cities, targeting busy professionals and working parents aged 22–45 who have the income but not the time to shop and cook from scratch.</p>
+    </div>
+
+    <div class="case-block">
+      <h2>Research &amp; competitive analysis</h2>
+      <p>I started with desk research into established players in food-tech delivery, studying their UX strengths and where user feedback showed them falling short — since a new entrant needs to be better where competitors are weakest, not just present. From there I built a detailed user persona to keep design decisions grounded in a specific person's goals, not an abstract "target market."</p>
+      <div class="persona-card" style="max-width:460px;">
+        <span class="p-role">Persona · Age 34 &amp; 38</span>
+        <p class="p-name">Jessica &amp; John Smith</p>
+        <p class="p-quote">"Family is our number one priority."</p>
+        <p>A dual-income family with two young children. Both work full-time and are pressed for time in the evenings; they love cooking and eating together but increasingly can't fit it in around work and childcare.</p>
+      </div>
+    </div>
+
+    <div class="case-block">
+      <h2>Journey mapping</h2>
+      <p>I mapped Jessica's journey across four stages — download/login, discovery, checkout, and delivery — capturing her actual in-the-moment thoughts and frustrations at each step, then pairing every friction point with a concrete design opportunity.</p>
+      <div class="two-col">
+        <div class="insight-card">
+          <span class="i-label">Stage 1–2 · Login &amp; discovery</span>
+          <p>"Do I have to set up an account to get started?" → Social sign-in (Facebook/Google) to remove onboarding friction; clear restaurant vs. grocery split with a visible search bar and social-proof reviews.</p>
+        </div>
+        <div class="insight-card">
+          <span class="i-label">Stage 3–4 · Checkout &amp; delivery</span>
+          <p>"How much does it cost to use this service?" → A single-screen checkout with a transparent cost breakdown, plus a map-based ETA screen (similar to ride-share apps) so delivery never feels like a black box.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="case-block">
+      <h2>From user flow to wireframes</h2>
+      <p>With the journey map as a foundation, I built out the full user flow — sign-up, restaurant/grocery selection, item browsing, cart and checkout, live ETA tracking — before moving into low-fidelity wireframes to pressure-test the structure, then high-fidelity screens once the flow held up.</p>
+      <div class="figure">
+        <svg viewBox="0 0 640 170" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="User flow from sign up to delivery tracking">
+          <rect x="10" y="60" width="120" height="50" rx="6" fill="#E4ECF1" stroke="#A9C3D6"/>
+          <text x="70" y="89" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="11" fill="#1C2024">Sign up / in</text>
+          <path d="M130 85 h28" stroke="#B0502F" stroke-width="1.6" marker-end="url(#a3)"/>
+          <rect x="158" y="60" width="120" height="50" rx="6" fill="#E4ECF1" stroke="#A9C3D6"/>
+          <text x="218" y="89" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="11" fill="#1C2024">Browse &amp; select</text>
+          <path d="M278 85 h28" stroke="#B0502F" stroke-width="1.6" marker-end="url(#a3)"/>
+          <rect x="306" y="60" width="120" height="50" rx="6" fill="#E4ECF1" stroke="#A9C3D6"/>
+          <text x="366" y="89" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="11" fill="#1C2024">Checkout</text>
+          <path d="M426 85 h28" stroke="#B0502F" stroke-width="1.6" marker-end="url(#a3)"/>
+          <rect x="454" y="50" width="150" height="70" rx="6" fill="#35577A"/>
+          <text x="529" y="82" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="11" fill="#F6F6F3">Live ETA</text>
+          <text x="529" y="96" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="11" fill="#F6F6F3">delivery tracking</text>
+          <defs>
+            <marker id="a3" markerWidth="8" markerHeight="8" refX="4" refY="4" orient="auto">
+              <path d="M0,0 L8,4 L0,8 Z" fill="#B0502F"/>
+            </marker>
+          </defs>
+        </svg>
+        <p class="figure-caption">Core user flow, validated against the journey map before any visual design began.</p>
+      </div>
+    </div>
+
+    <div class="case-block">
+      <h2>Designing for trust</h2>
+      <p>Any product handling payments has to earn trust before it earns a transaction. I focused on two levers: usability (frictionless onboarding, transparent checkout, clear order tracking) and aesthetics (highlighting top-rated restaurants and social proof throughout). A bright, approachable colour palette reinforced the brand's friendly tone without undermining the sense of a trustworthy, well-run service.</p>
+    </div>
+
+    <div class="case-block">
+      <h2>Reflection</h2>
+      <p>Local Grub reinforced a principle I still apply directly: a journey map is only useful if every stage produces a specific design decision, not just a diagram. The strongest part of this project was resisting the urge to jump to screens — the persona and journey work up front made the checkout and tracking decisions almost obvious once I got there.</p>
+    </div>
+
+    <div class="case-block" style="text-align:center; border-top:1px solid var(--line); padding-top:40px;">
+      <p style="margin-bottom:18px;">Want the full research, wireframes, storyboards and prototype video for this project?</p>
+      <div class="cta-row" style="justify-content:center;">
+        <a href="case-pdfs/Local_Grub_UX_Case_Study.pdf" class="btn btn-primary" target="_blank" rel="noopener">View full case study (PDF) ↓</a>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<div class="wrap-read">
+  <div class="case-nav">
+    <a href="app-redesign-unileeds.html">← App Redesign: UniLeeds</a>
+    <a href="the-social-worth.html">Next: The Social Worth →</a>
+  </div>
+</div>
+
+<footer id="contact">
+  <div class="wrap">
+    <div class="contact-box">
+      <h2>Let's talk about your product</h2>
+      <p>Based in Sheffield, UK. Open to Product, UX &amp; UI Designer roles — remote, hybrid or on-site, anywhere in the UK.</p>
+      <div class="contact-links">
+        <a href="mailto:mallikathakur@hotmail.com" class="btn btn-primary">mallikathakur@hotmail.com</a>
+        <a href="https://www.linkedin.com/in/mallikathakur-077912b8" class="btn btn-ghost" target="_blank" rel="noopener">LinkedIn ↗</a>
+        <a href="Mallika_Thakur_Product_Designer_Resume.pdf" class="btn btn-ghost">Résumé ↓</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
